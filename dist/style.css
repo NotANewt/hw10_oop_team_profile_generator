@@ -1,0 +1,60 @@
+:root {
+  --main-bg-color: #7e547c;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+a:hover {
+  color: rgb(174, 235, 100);
+}
+
+body {
+  background-color: var(--main-bg-color);
+  margin: 0;
+}
+
+header {
+  align-items: center;
+  background-color: rgb(46, 121, 153);
+  color: white;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+footer {
+  align-items: center;
+  background-color: rgb(46, 121, 153);
+  color: white;
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.card {
+  background-color: rgb(46, 121, 153);
+  color: white;
+
+  display: inline-block;
+  border-radius: 1rem;
+}
+
+.card_info {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.card_top {
+  border-bottom-style: solid;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
