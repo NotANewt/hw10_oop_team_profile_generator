@@ -1,5 +1,7 @@
 :root {
   --main-bg-color: #7e547c;
+  --sec-bg-color: #7d3d98;
+  --main-highlight-color: #a83e86;
 }
 
 a {
@@ -14,41 +16,45 @@ a:hover {
 body {
   background-color: var(--main-bg-color);
   margin: 0;
+  font-family: "Bitter", serif;
 }
 
 header {
   align-items: center;
-  background-color: rgb(46, 121, 153);
+  background-color: var(--sec-bg-color);
   color: white;
   display: flex;
   justify-content: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 footer {
   align-items: center;
-  background-color: rgb(46, 121, 153);
+  background-color: var(--sec-bg-color);
   color: white;
   display: flex;
   justify-content: center;
-  margin-top: 3rem;
+  margin-top: 2rem;
 }
 
 .card {
-  background-color: rgb(46, 121, 153);
+  background-color: var(--main-highlight-color);
   color: white;
-
   display: inline-block;
-  border-radius: 1rem;
-}
-
-.card_info {
-  padding-left: 1rem;
-  padding-right: 1rem;
+  border-style: solid;
+  border-radius: 2rem;
+  margin: 1rem;
 }
 
 .card_top {
   border-bottom-style: solid;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
+}
+
+.card_info {
   padding-left: 1rem;
   padding-right: 1rem;
 }
@@ -57,4 +63,17 @@ footer {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.name {
+  font-size: 2rem;
+}
+
+/* media queries */
+@media (min-width: 769px) {
+  .container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
 }
