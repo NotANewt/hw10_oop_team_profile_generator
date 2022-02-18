@@ -2,27 +2,30 @@
   --main-bg-color: #7e547c;
   --sec-bg-color: #7d3d98;
   --main-highlight-color: #a83e86;
+  --font-color: white;
+  --border-color: #3a1b2c;
+  --hover-color: #c1bf4b;
 }
 
 a {
-  color: white;
+  color: var(--font-color);
   text-decoration: none;
 }
 
 a:hover {
-  color: rgb(174, 235, 100);
+  color: var(--hover-color);
 }
 
 body {
   background-color: var(--main-bg-color);
   margin: 0;
-  font-family: "Bitter", serif;
+  font-family: "Work Sans", sans-serif;
 }
 
 header {
   align-items: center;
   background-color: var(--sec-bg-color);
-  color: white;
+  color: var(--font-color);
   display: flex;
   justify-content: center;
   margin-bottom: 2rem;
@@ -31,7 +34,7 @@ header {
 footer {
   align-items: center;
   background-color: var(--sec-bg-color);
-  color: white;
+  color: var(--font-color);
   display: flex;
   justify-content: center;
   margin-top: 2rem;
@@ -39,8 +42,9 @@ footer {
 
 .card {
   background-color: var(--main-highlight-color);
-  color: white;
+  color: var(--font-color);
   display: inline-block;
+  border-color: var(--border-color);
   border-style: solid;
   border-radius: 2rem;
   margin: 1rem;
@@ -50,6 +54,7 @@ footer {
   border-bottom-style: solid;
   padding-left: 1rem;
   padding-right: 1rem;
+  border-color: var(--border-color);
   border-top-left-radius: 2rem;
   border-top-right-radius: 2rem;
 }
