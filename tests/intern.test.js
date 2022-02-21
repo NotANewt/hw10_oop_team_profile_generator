@@ -23,7 +23,7 @@ getRole test
 
 */
 
-describe("Employee", () => {
+describe("Intern", () => {
   describe("Initialization", () => {
     it("should return an object containing 'name', 'id', 'email', and 'school' properties when called with the 'new' keyword", () => {
       const obj = new Intern({});

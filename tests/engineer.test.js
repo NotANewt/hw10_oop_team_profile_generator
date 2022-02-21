@@ -21,7 +21,7 @@ getRole test
     * it should return 'Engineer' when created
 */
 
-describe("Employee", () => {
+describe("Engineer", () => {
   describe("Initialization", () => {
     it("should return an object containing 'name', 'id', 'email', and github properties when called with the 'new' keyword", () => {
       const obj = new Engineer({});
