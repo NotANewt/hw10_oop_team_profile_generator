@@ -27,76 +27,18 @@ describe("Employee", () => {
       expect("email" in obj).toEqual(true);
     });
 
-    it("should set 'name' when created", () => {
+    it("should set 'name', 'id', and 'email' when created", () => {
       const name = "david blaine";
-
-      const obj = new Employee({ name });
-
-      expect(obj.name).toEqual(name);
-    });
-
-    it("should set 'id' when created", () => {
       const id = "001";
-
-      const obj = new Employee({ id });
-
-      expect(obj.id).toEqual(id);
-    });
-
-    it("should set 'email' when created", () => {
       const email = "david.blaine@magic.com";
-
-      const obj = new Employee({ email });
-
-      expect(obj.email).toEqual(email);
-    });
-  });
-
-  describe("getName", () => {
-    //   getName method should return supplied name when called
-    it("should return 'name' when called", () => {
-      // define name
-      const name = "david blaine";
-      //   pass 'name' into .getName() and set that value to returnedName
-      const returnedName = new Employee({}).getName({ name });
-      //   expect 'returnedName' to equal 'name'
-      expect(returnedName).toEqual(name);
-    });
-  });
-
-  describe("getId", () => {
-    //   getId method should return supplied id when called
-    it("should return 'id' when called", () => {
-      // define id
-      const id = "001";
-      //   pass 'id' into .getId() and set that value to returnedId
-      const returnedId = new Employee({}).getId({ id });
-      //   expect 'returnedId' to equal 'id'
-      expect(returnedId).toEqual(id);
-    });
-  });
-
-  describe("getEmail", () => {
-    //   getEmail method should return supplied email when called
-    it("should return 'email' when called", () => {
-      // define email
-      const email = "david.blaine@magic.com";
-      //   pass 'email' into .getEmail() and set that value to returnedEmail
-      const returnedEmail = new Employee({}).getEmail({ email });
-      //   expect 'returnedEmail' to equal 'email'
-      expect(returnedEmail).toEqual(email);
-    });
-  });
-
-  describe("getRole", () => {
-    //   getEmail method should return "Employee" when called
-    it("should return 'Employee' when called", () => {
-      // define role
       const role = "Employee";
-      //   call .getRole() and set the returned value to returnedRole
-      const returnedRole = new Employee({}).getRole({});
-      //   expect 'returnedRole' to equal 'role'
-      expect(returnedRole).toEqual(role);
+
+      const obj = new Employee({ name, id, email });
+
+      expect(obj.getName()).toEqual(name);
+      expect(obj.getId()).toEqual(id);
+      expect(obj.getEmail()).toEqual(email);
+      expect(obj.getRole()).toEqual(role);
     });
   });
 });
