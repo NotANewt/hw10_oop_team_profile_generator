@@ -88,7 +88,8 @@ function runInqurer() {
     console.log(managerOfficeNumber);
     console.log(managerRole);
 
-    const HTMLText = generateHTML.generateHTMLText({ managerName, managerId, managerEmail, managerOfficeNumber, managerRole });
+    const managerCard = generateHTML.generateManager({ managerName, managerId, managerEmail, managerOfficeNumber, managerRole });
+    const HTMLText = generateHTML.generateHTMLText(managerCard);
     writeToFile(HTMLText);
   });
 }

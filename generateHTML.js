@@ -5,8 +5,26 @@
     * uses a template literal for the layout of the HTML file with the supplied answers added into the template
     * returns the template literal
 */
-function generateManager() {
-  console.log("here is a manager!");
+function generateManager({ managerName, managerId, managerEmail, managerOfficeNumber, managerRole }) {
+  let managerCard = "";
+  if (managerName !== "") {
+    managerCard = `<div class="card">
+
+<div class="card_top">
+    <p class="name">${managerName}</p>
+    <p class="employeeType"><i class="fa-solid fa-mug-hot"></i> ${managerRole}</p>
+</div>
+
+<div class="card_info">
+    <p class="card_id">ID: ${managerId}</p>
+    <p class="card_email">Email: <a href="mailto:${managerEmail}">${managerEmail}</a>
+    </p>
+    <p class="card_officeNumber">Office Number: ${managerOfficeNumber}</p>
+</div>
+</div>     
+`;
+  }
+  return managerCard;
 }
 
 /*
@@ -16,7 +34,7 @@ function generateManager() {
     * uses a template literal for the layout of the HTML file with the supplied answers added into the template
     * returns the template literal
 */
-function generateHTMLText({ managerName, managerId, managerEmail, managerOfficeNumber, managerRole }) {
+function generateHTMLText(managerCard) {
   return `<!DOCTYPE html>
 <html lang="en">
 
@@ -40,21 +58,9 @@ function generateHTMLText({ managerName, managerId, managerEmail, managerOfficeN
 
     <div class="container">
 
-        <!-- Manager sample card -->
-        <div class="card">
-
-            <div class="card_top">
-                <p class="name">${managerName}</p>
-                <p class="employeeType"><i class="fa-solid fa-mug-hot"></i> ${managerRole}</p>
-            </div>
-
-            <div class="card_info">
-                <p class="card_id">ID: ${managerId}</p>
-                <p class="card_email">Email: <a href="mailto:${managerEmail}">${managerEmail}</a>
-                </p>
-                <p class="card_officeNumber">Office Number: ${managerOfficeNumber}</p>
-            </div>
-        </div>   
+        <!-- Manager Card -->
+${managerCard}
+        
     </div>
 
     <!-- footer -->
@@ -68,4 +74,7 @@ function generateHTMLText({ managerName, managerId, managerEmail, managerOfficeN
 }
 
 // modules to export
-module.exports = { generateHTMLText };
+module.exports = {
+  generateManager,
+  generateHTMLText,
+};
