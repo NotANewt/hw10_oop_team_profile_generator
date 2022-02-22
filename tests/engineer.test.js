@@ -23,7 +23,7 @@ getRole test
 
 describe("Engineer", () => {
   describe("Initialization", () => {
-    it("should return an object containing 'name', 'id', 'email', and github properties when called with the 'new' keyword", () => {
+    it("should return an object containing 'name', 'id', 'email', and 'github' properties when called with the 'new' keyword", () => {
       const obj = new Engineer({});
 
       expect("name" in obj).toEqual(true);
@@ -32,7 +32,7 @@ describe("Engineer", () => {
       expect("github" in obj).toEqual(true);
     });
 
-    it("should set 'name' when created", () => {
+    it("should set 'name', 'id', 'email', and 'github' when created", () => {
       const name = "david blaine";
       const id = "001";
       const email = "david.blaine@magic.com";
