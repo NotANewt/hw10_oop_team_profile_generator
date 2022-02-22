@@ -160,22 +160,55 @@ const internQuestions = [
 //   });
 // }
 
-function runInquirer() {
-  inquirer.prompt(managerQuestions).then(function (answers) {
-    let whatNext = answers.whatNext;
+// TODO: Push each employee object into an array to work through when all employees have been added
+
+function runInquirerForManager() {
+  inquirer.prompt(managerQuestions).then(function (managerAnswers) {
+    const employeeManager = new manager(managerAnswers);
+    const managerName = employeeManager.name;
+    const managerId = employeeManager.id;
+    const managerEmail = employeeManager.email;
+    const managerOfficeNumber = employeeManager.officeNumber;
+    const managerRole = employeeManager.getRole();
+    const managerCard = generateHTML.generateManager({ managerName, managerId, managerEmail, managerOfficeNumber, managerRole });
+
+    // check what to do next
+    let whatNext = managerAnswers.whatNext;
 
     if (whatNext === "Finish Building My Team") {
       console.log("they chose Finish Building My Team");
-      const employeeManager = new manager(answers);
-      const managerName = employeeManager.name;
-      const managerId = employeeManager.id;
-      const managerEmail = employeeManager.email;
-      const managerOfficeNumber = employeeManager.officeNumber;
-      const managerRole = employeeManager.getRole();
-
-      const managerCard = generateHTML.generateManager({ managerName, managerId, managerEmail, managerOfficeNumber, managerRole });
       const HTMLText = generateHTML.generateHTMLText(managerCard);
       writeToFile(HTMLText);
+    } else {
+      if (whatNext === "Add An Enginner to My Team") {
+        console.log("they chose an engineer");
+        runInquirerForEngineer();
+      }
+    }
+  });
+}
+
+function runInquirerForEngineer() {
+  inquirer.prompt(engineerQuestions).then(function (engineerAnswers) {
+    const employeeEngineer = new engineer(engineerAnswers);
+    const engineerName = employeeEngineer.name;
+    const engineerId = employeeEngineer.id;
+    const engineerEmail = employeeEngineer.email;
+    const engineerGithub = employeeEngineer.github;
+    const engineerRole = employeeEngineer.getRole();
+    const engineerCard = generateHTML.generateEngineer({ engineerName, engineerId, engineerEmail, engineerGithub, engineerRole });
+
+    let whatNext = engineerAnswers.whatNext;
+
+    if (whatNext === "Finish Building My Team") {
+      console.log("they chose Finish Building My Team");
+      const HTMLText = generateHTML.generateHTMLText(engineerCard);
+      writeToFile(HTMLText);
+    } else {
+      if (whatNext === "Add An Enginner to My Team") {
+        console.log("they chose an engineer");
+        runInquirerForEngineer();
+      }
     }
   });
 }
@@ -189,7 +222,7 @@ function runInquirer() {
     * if the file is written successfully, console log sucess.
 */
 function writeToFile(HTMLText) {
-  fs.writeFile("../dist/index.html", HTMLText, (err) => (err ? console.error(err) : console.log("Success! The HTML webpage has been genarated.")));
+  fs.writeFile("../dist/index.html", HTMLText, (err) => (err ? console.error(err) : console.log("Success! The HTML webpage has been generated.")));
 }
 
 /*
@@ -198,7 +231,7 @@ function writeToFile(HTMLText) {
     * calls runInquirer function
 */
 function init() {
-  runInquirer();
+  runInquirerForManager();
 }
 
 // Initialize the application by calling init function
