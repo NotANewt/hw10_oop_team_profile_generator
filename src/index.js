@@ -7,6 +7,11 @@ const engineer = require("../lib/engineer");
 const intern = require("../lib/intern");
 const manager = require("../lib/manager");
 
+// Employee array to hold generated manager, engineers, and interns
+let newManagerObj = {};
+let engineerArray = [];
+let internArray = [];
+
 /*
     array of questions objects for Inquirer
         manager prompts: 
@@ -119,9 +124,9 @@ const internQuestions = [
   },
 
   {
-    name: "github",
+    name: "school",
     type: "input",
-    message: "Enter your Intern's github account name.",
+    message: "Enter your Intern's school.",
   },
 
   {
@@ -131,6 +136,142 @@ const internQuestions = [
     choices: ["Add An Enginner to My Team", "Add an Intern to My Team", "Finish Building My Team"],
   },
 ];
+
+function runInquirerForManager() {
+  inquirer.prompt(managerQuestions).then(function (answers) {
+    const employeeManager = new manager(answers);
+
+    // load data into object
+    newManagerObj.name = employeeManager.getName();
+    newManagerObj.id = employeeManager.getId();
+    newManagerObj.email = employeeManager.getEmail();
+    newManagerObj.officeNumber = employeeManager.getOfficeNumber();
+    newManagerObj.role = employeeManager.getRole();
+
+    // check what to do next
+    let whatNext = answers.whatNext;
+
+    if (whatNext === "Finish Building My Team") {
+      //TODO: make finishBuildingTeam function
+      finishBuildingTeam();
+      // const HTMLText = generateHTML.generateHTMLText(managerCard);
+      // writeToFile(HTMLText);
+    } else if (whatNext === "Add An Enginner to My Team") {
+      runInquirerForEngineer();
+    } else {
+      runInquirerForIntern();
+    }
+  });
+}
+
+function runInquirerForEngineer() {
+  inquirer.prompt(engineerQuestions).then(function (answers) {
+    const employeeEngineer = new engineer(answers);
+
+    // create object
+    let newEngineerObj = {};
+
+    // load data into object
+    newEngineerObj.name = employeeEngineer.getName();
+    newEngineerObj.id = employeeEngineer.getId();
+    newEngineerObj.email = employeeEngineer.getEmail();
+    newEngineerObj.github = employeeEngineer.getGithub();
+    newEngineerObj.role = employeeEngineer.getRole();
+
+    // push new object into the array
+    engineerArray.push(newEngineerObj);
+
+    let whatNext = answers.whatNext;
+
+    if (whatNext === "Finish Building My Team") {
+      //TODO: make finishBuildingTeam function
+      finishBuildingTeam();
+      // const HTMLText = generateHTML.generateHTMLText(managerCard);
+      // writeToFile(HTMLText);
+    } else if (whatNext === "Add An Enginner to My Team") {
+      runInquirerForEngineer();
+    } else {
+      runInquirerForIntern();
+    }
+  });
+}
+
+function runInquirerForIntern() {
+  inquirer.prompt(internQuestions).then(function (answers) {
+    const employeeIntern = new intern(answers);
+
+    // create object
+    let newInternObj = {};
+
+    // load data into object
+    newInternObj.name = employeeIntern.getName();
+    newInternObj.id = employeeIntern.getId();
+    newInternObj.email = employeeIntern.getEmail();
+    newInternObj.school = employeeIntern.getSchool();
+    newInternObj.role = employeeIntern.getRole();
+
+    // push new object into the array
+    internArray.push(newInternObj);
+
+    let whatNext = answers.whatNext;
+
+    if (whatNext === "Finish Building My Team") {
+      //TODO: make finishBuildingTeam function
+      finishBuildingTeam();
+      // const HTMLText = generateHTML.generateHTMLText(managerCard);
+      // writeToFile(HTMLText);
+    } else if (whatNext === "Add An Enginner to My Team") {
+      runInquirerForEngineer();
+    } else {
+      runInquirerForIntern();
+    }
+  });
+}
+
+function finishBuildingTeam() {
+  let managerName = newManagerObj.name;
+  let managerId = newManagerObj.id;
+  let managerEmail = newManagerObj.email;
+  let managerOfficeNumber = newManagerObj.officeNumber;
+  let managerRole = newManagerObj.role;
+  const managerCard = generateHTML.generateManager(managerName, managerId, managerEmail, managerOfficeNumber, managerRole);
+  const htmlTextTop = generateHTML.generateHTMLTextTop();
+  const htmlTextBottom = generateHTML.generateHTMLTextBottom();
+
+  const HTMLText = generateHTML.generateHTMLText(htmlTextTop, htmlTextBottom, managerCard);
+  writeToFile(HTMLText);
+}
+
+/*
+ Write HTML file
+  writes the index.html file using "HTMLText" from generateHTMLText.js
+    * titles file "index.html"
+    * writes file using "HTMLText" from generateHTMLText.js
+    * if there is an error, console error
+    * if the file is written successfully, console log sucess.
+*/
+function writeToFile(HTMLText) {
+  fs.writeFile("../dist/index.html", HTMLText, (err) => (err ? console.error(err) : console.log("Success! The HTML webpage has been generated.")));
+}
+
+/*
+ init()
+  initializatize the application
+    * calls runInquirer function
+*/
+function init() {
+  runInquirerForManager();
+}
+
+// Initialize the application by calling init function
+init();
+
+// const managerName = employeeManager.name;
+// const managerId = employeeManager.id;
+// const managerEmail = employeeManager.email;
+// const managerOfficeNumber = employeeManager.officeNumber;
+// const managerRole = employeeManager.getRole();
+// const managerCard = generateHTML.generateManager({ managerName, managerId, managerEmail, managerOfficeNumber, managerRole });
 
 /*
     runInquirer
@@ -159,80 +300,3 @@ const internQuestions = [
 //     writeToFile(HTMLText);
 //   });
 // }
-
-// TODO: Push each employee object into an array to work through when all employees have been added
-
-function runInquirerForManager() {
-  inquirer.prompt(managerQuestions).then(function (managerAnswers) {
-    const employeeManager = new manager(managerAnswers);
-    const managerName = employeeManager.name;
-    const managerId = employeeManager.id;
-    const managerEmail = employeeManager.email;
-    const managerOfficeNumber = employeeManager.officeNumber;
-    const managerRole = employeeManager.getRole();
-    const managerCard = generateHTML.generateManager({ managerName, managerId, managerEmail, managerOfficeNumber, managerRole });
-
-    // check what to do next
-    let whatNext = managerAnswers.whatNext;
-
-    if (whatNext === "Finish Building My Team") {
-      console.log("they chose Finish Building My Team");
-      const HTMLText = generateHTML.generateHTMLText(managerCard);
-      writeToFile(HTMLText);
-    } else {
-      if (whatNext === "Add An Enginner to My Team") {
-        console.log("they chose an engineer");
-        runInquirerForEngineer();
-      }
-    }
-  });
-}
-
-function runInquirerForEngineer() {
-  inquirer.prompt(engineerQuestions).then(function (engineerAnswers) {
-    const employeeEngineer = new engineer(engineerAnswers);
-    const engineerName = employeeEngineer.name;
-    const engineerId = employeeEngineer.id;
-    const engineerEmail = employeeEngineer.email;
-    const engineerGithub = employeeEngineer.github;
-    const engineerRole = employeeEngineer.getRole();
-    const engineerCard = generateHTML.generateEngineer({ engineerName, engineerId, engineerEmail, engineerGithub, engineerRole });
-
-    let whatNext = engineerAnswers.whatNext;
-
-    if (whatNext === "Finish Building My Team") {
-      console.log("they chose Finish Building My Team");
-      const HTMLText = generateHTML.generateHTMLText(engineerCard);
-      writeToFile(HTMLText);
-    } else {
-      if (whatNext === "Add An Enginner to My Team") {
-        console.log("they chose an engineer");
-        runInquirerForEngineer();
-      }
-    }
-  });
-}
-
-/*
- Write HTML file
-  writes the index.html file using "HTMLText" from generateHTMLText.js
-    * titles file "index.html"
-    * writes file using "HTMLText" from generateHTMLText.js
-    * if there is an error, console error
-    * if the file is written successfully, console log sucess.
-*/
-function writeToFile(HTMLText) {
-  fs.writeFile("../dist/index.html", HTMLText, (err) => (err ? console.error(err) : console.log("Success! The HTML webpage has been generated.")));
-}
-
-/*
- init()
-  initializatize the application
-    * calls runInquirer function
-*/
-function init() {
-  runInquirerForManager();
-}
-
-// Initialize the application by calling init function
-init();
