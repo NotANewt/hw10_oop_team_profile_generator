@@ -1,7 +1,6 @@
 const Intern = require("../lib/intern");
 
 /*
-
 Initialization test
     * it should return an object containing name, number, and id properties when called with the 'new' keyword
     

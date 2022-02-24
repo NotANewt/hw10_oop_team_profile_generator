@@ -19,35 +19,36 @@ a:hover {
 body {
   background-color: var(--main-bg-color);
   margin: 0;
+  padding: 0;
   font-family: "Work Sans", sans-serif;
 }
 
 header {
-  align-items: center;
+  text-align: center;
+  padding: 0.5rem;
   background-color: var(--sec-bg-color);
   color: var(--font-color);
-  display: flex;
-  justify-content: center;
   margin-bottom: 2rem;
 }
 
 footer {
-  align-items: center;
+  text-align: center;
+  padding: 0.5rem;
   background-color: var(--sec-bg-color);
   color: var(--font-color);
-  display: flex;
-  justify-content: center;
   margin-top: 2rem;
 }
 
 .card {
   background-color: var(--main-highlight-color);
   color: var(--font-color);
-  display: inline-block;
+  display: block;
   border-color: var(--border-color);
   border-style: solid;
   border-radius: 2rem;
   margin: 1rem;
+  width: 20rem;
+  max-width: 80%;
 }
 
 .card_top {
@@ -67,11 +68,14 @@ footer {
 .container {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   align-items: center;
+  margin: 0;
+  padding: 0;
 }
 
 .name {
-  font-size: 2rem;
+  font-size: 1.3rem;
 }
 
 /* media queries */

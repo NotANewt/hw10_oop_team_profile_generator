@@ -1,7 +1,6 @@
 const Engineer = require("../lib/engineer");
 
 /*
-
 Initialization test
     * it should return an object containing name, number, and id properties when called with the 'new' keyword
     
