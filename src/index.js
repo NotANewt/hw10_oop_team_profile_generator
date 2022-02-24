@@ -152,10 +152,7 @@ function runInquirerForManager() {
     let whatNext = answers.whatNext;
 
     if (whatNext === "Finish Building My Team") {
-      //TODO: make finishBuildingTeam function
       finishBuildingTeam();
-      // const HTMLText = generateHTML.generateHTMLText(managerCard);
-      // writeToFile(HTMLText);
     } else if (whatNext === "Add An Enginner to My Team") {
       runInquirerForEngineer();
     } else {
@@ -168,7 +165,7 @@ function runInquirerForEngineer() {
   inquirer.prompt(engineerQuestions).then(function (answers) {
     const employeeEngineer = new engineer(answers);
 
-    // create object
+    // create the object
     let newEngineerObj = {};
 
     // load data into object
@@ -229,16 +226,53 @@ function runInquirerForIntern() {
 }
 
 function finishBuildingTeam() {
+  //manager
   let managerName = newManagerObj.name;
   let managerId = newManagerObj.id;
   let managerEmail = newManagerObj.email;
   let managerOfficeNumber = newManagerObj.officeNumber;
   let managerRole = newManagerObj.role;
+
   const managerCard = generateHTML.generateManager(managerName, managerId, managerEmail, managerOfficeNumber, managerRole);
+
+  // enginners
+  //create the string to add engineer cards
+  let engineerCardString = "";
+
+  // loop through engineerArray
+  engineerArray.forEach(function (engineerObj) {
+    let engineerName = engineerObj.name;
+    let engineerId = engineerObj.id;
+    let engineerEmail = engineerObj.email;
+    let engineerGithub = engineerObj.github;
+    let engineerRole = engineerObj.role;
+
+    const engineerCard = generateHTML.generateEngineer(engineerName, engineerId, engineerEmail, engineerGithub, engineerRole);
+
+    engineerCardString += engineerCard;
+  });
+
+  // interns
+  // create the string to add intern cards
+  let internCardString = "";
+
+  // loop through inernArray
+  internArray.forEach(function (internObj) {
+    let internName = internObj.name;
+    let internId = internObj.id;
+    let internEmail = internObj.email;
+    let internSchool = internObj.github;
+    let internRole = internObj.role;
+
+    const internCard = generateHTML.generateIntern(internName, internId, internEmail, internSchool, internRole);
+
+    // append internCard to existing internCardString
+    internCardString += internCard;
+  });
+
   const htmlTextTop = generateHTML.generateHTMLTextTop();
   const htmlTextBottom = generateHTML.generateHTMLTextBottom();
-
-  const HTMLText = generateHTML.generateHTMLText(htmlTextTop, htmlTextBottom, managerCard);
+  const HTMLText = generateHTML.generateHTMLText(htmlTextTop, htmlTextBottom, managerCard, engineerCardString, internCard);
   writeToFile(HTMLText);
 }
 

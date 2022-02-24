@@ -71,9 +71,38 @@ function generateManager(managerName, managerId, managerEmail, managerOfficeNumb
   return managerCard;
 }
 
-function generateHTMLText(htmlTextTop, htmlTextBottom, managerCard) {
+/*
+ generateEngineer
+  generates what will go in the Engineer Card
+    * takes in engineer-related answers
+    * uses a template literal for the layout of Engineer Card part of the HTML file with the supplied answers added into the template
+    * returns the template literal
+*/
+function generateEngineer(engineerName, engineerId, engineerEmail, engineerGithub, engineerRole) {
+  let engineerCard = "";
+  if (engineerName !== "") {
+    engineerCard = `<div class="card">
+
+<div class="card_top">
+    <p class="name">${engineerName}</p>
+    <p class="employeeType"><i class="fa-solid fa-laptop-code"></i>${engineerRole}</p>
+</div>
+
+<div class="card_info">
+    <p class="card_id">ID: ${engineerId}</p>
+    <p class="card_email">Email: <a href="mailto:${engineerEmail}">${engineerEmail}</a>
+    </p>
+    <p class="card_github">GitHub: <a href="https://www.github.com/${engineerGithub}" target="_blank">${engineerGithub}</a></p>
+</div>
+</div>`;
+  }
+  return engineerCard;
+}
+
+function generateHTMLText(htmlTextTop, htmlTextBottom, managerCard, engineerCardString) {
   return `${htmlTextTop}
 ${managerCard}
+${engineerCardString}
 ${htmlTextBottom}`;
 }
 
@@ -104,34 +133,6 @@ ${htmlTextBottom}`;
 // `;
 //   }
 //   return managerCard;
-// }
-
-// /*
-//  generateEngineer
-//   generates what will go in the Engineer Card
-//     * takes in engineer-related answers
-//     * uses a template literal for the layout of Engineer Card part of the HTML file with the supplied answers added into the template
-//     * returns the template literal
-// */
-// function generateEngineer({ engineerName, engineerId, engineerEmail, engineerGithub, engineerRole }) {
-//   let engineerCard = "";
-//   if (engineerName !== "") {
-//     engineerCard = `<div class="card">
-
-// <div class="card_top">
-//     <p class="name">${engineerName}</p>
-//     <p class="employeeType"><i class="fa-solid fa-laptop-code"></i>${engineerRole}</p>
-// </div>
-
-// <div class="card_info">
-//     <p class="card_id">ID: ${engineerId}</p>
-//     <p class="card_email">Email: <a href="mailto:${engineerEmail}">${engineerEmail}</a>
-//     </p>
-//     <p class="card_github">GitHub: <a href="https://www.github.com/${engineerGithub}" target="_blank">${engineerGithub}</a></p>
-// </div>
-// </div>`;
-//   }
-//   return engineerCard;
 // }
 
 // /*
@@ -182,5 +183,6 @@ module.exports = {
   generateHTMLTextTop,
   generateHTMLTextBottom,
   generateManager,
+  generateEngineer,
   generateHTMLText,
 };
