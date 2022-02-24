@@ -1,54 +1,10 @@
-function generateHTMLTextTop() {
-  let htmlTextTop = "";
-  htmlTextTop = `<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Profile</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/49aab69f62.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="./style.css">
-</head>
-
-<body>
-    <!-- header -->
-    <header>
-        <h1>My Team</h1>
-    </header>
-
-    <div class="container">
-`;
-  return htmlTextTop;
-}
-
-function generateHTMLTextBottom() {
-  let htmlTextBottom = "";
-  htmlTextBottom = `</div>
-
-  <!-- footer -->
-  <footer class="">
-      <p class="">Made with &#9825; and OOP by <a class="no-text-decor" href="https://github.com/NotANewt"
-              target="_blank">Meegan</a></p>
-  </footer>
-</body>
-
-</html>
-  `;
-  return htmlTextBottom;
-}
-
-// /*
-//  generateManager
-//   generates what will go in the Manager Card
-//     * takes in manager-related answers
-//     * uses a template literal for the layout of the Manager Card part of the HTML file with the supplied answers added into the template
-//     * returns the template literal
-// */
+/*
+ generateManager
+  generates what will go in the Manager Card
+    * takes in manager-related answers
+    * uses a template literal for the layout of the Manager Card part of the HTML file with the supplied answers added into the template
+    * returns the template literal
+*/
 function generateManager(managerName, managerId, managerEmail, managerOfficeNumber, managerRole) {
   let managerCard = "";
   if (managerName !== "") {
@@ -127,18 +83,53 @@ function generateIntern(internName, internId, internEmail, internSchool, internR
   return internCard;
 }
 
-function generateHTMLText(htmlTextTop, htmlTextBottom, managerCard, engineerCardString, internCardString) {
-  return `${htmlTextTop}
-${managerCard}
-${engineerCardString}
-${internCardString}
-${htmlTextBottom}`;
+function generateHTMLText(managerCard, engineerCardString, internCardString) {
+  return `<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/49aab69f62.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <!-- header -->
+    <header>
+        <h1>My Team</h1>
+    </header>
+
+    <div class="container">
+
+        <!-- Managercard -->
+        ${managerCard}
+
+        <!-- Engineer sample card -->
+        ${engineerCardString}
+
+        <!-- Intern Card(s) -->
+       ${internCardString}
+
+    </div>
+
+    <!-- footer -->
+    <footer class="">
+        <p class="">Made with &#9825; and OOP by <a class="no-text-decor" href="https://github.com/NotANewt"
+                target="_blank">Meegan</a></p>
+    </footer>
+</body>
+
+</html>`;
 }
 
 // modules to export
 module.exports = {
-  generateHTMLTextTop,
-  generateHTMLTextBottom,
   generateManager,
   generateEngineer,
   generateIntern,

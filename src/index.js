@@ -270,9 +270,7 @@ function finishBuildingTeam() {
     internCardString += internCard;
   });
 
-  const htmlTextTop = generateHTML.generateHTMLTextTop();
-  const htmlTextBottom = generateHTML.generateHTMLTextBottom();
-  const HTMLText = generateHTML.generateHTMLText(htmlTextTop, htmlTextBottom, managerCard, engineerCardString, internCardString);
+  const HTMLText = generateHTML.generateHTMLText(managerCard, engineerCardString, internCardString);
   writeToFile(HTMLText);
 }
 
