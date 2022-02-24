@@ -41,7 +41,7 @@ function generateEngineer(engineerName, engineerId, engineerEmail, engineerGithu
 
 <div class="card_top">
     <p class="name">${engineerName}</p>
-    <p class="employeeType"><i class="fa-solid fa-laptop-code"></i>${engineerRole}</p>
+    <p class="employeeType"><i class="fa-solid fa-laptop-code"></i> ${engineerRole}</p>
 </div>
 
 <div class="card_info">
@@ -69,7 +69,7 @@ function generateIntern(internName, internId, internEmail, internSchool, internR
 
 <div class="card_top">
     <p class="name">${internName}</p>
-    <p class="employeeType"><i class="fa-solid fa-laptop-code"></i>${internRole}</p>
+    <p class="employeeType"><i class="fa-solid fa-laptop-code"></i> ${internRole}</p>
 </div>
 
 <div class="card_info">
