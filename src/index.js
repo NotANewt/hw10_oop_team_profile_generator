@@ -261,7 +261,7 @@ function finishBuildingTeam() {
     let internName = internObj.name;
     let internId = internObj.id;
     let internEmail = internObj.email;
-    let internSchool = internObj.github;
+    let internSchool = internObj.school;
     let internRole = internObj.role;
 
     const internCard = generateHTML.generateIntern(internName, internId, internEmail, internSchool, internRole);
@@ -272,7 +272,7 @@ function finishBuildingTeam() {
 
   const htmlTextTop = generateHTML.generateHTMLTextTop();
   const htmlTextBottom = generateHTML.generateHTMLTextBottom();
-  const HTMLText = generateHTML.generateHTMLText(htmlTextTop, htmlTextBottom, managerCard, engineerCardString, internCard);
+  const HTMLText = generateHTML.generateHTMLText(htmlTextTop, htmlTextBottom, managerCard, engineerCardString, internCardString);
   writeToFile(HTMLText);
 }
 
