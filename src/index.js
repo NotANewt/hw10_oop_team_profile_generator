@@ -7,37 +7,12 @@ const engineer = require("../lib/engineer");
 const intern = require("../lib/intern");
 const manager = require("../lib/manager");
 
-// Employee array to hold generated manager, engineers, and interns
+// create manager object, engineer array, and intern array to push data into
 let newManagerObj = {};
 let engineerArray = [];
 let internArray = [];
 
-/*
-    array of questions objects for Inquirer
-        manager prompts: 
-            name, 
-            employee ID, 
-            email address, 
-            office number
-        presented with a Menu with options to:
-            add engineer
-            add intern
-            finish building team
-        engineer prompts:
-            name, 
-            employee ID, 
-            email address, 
-            GitHub username
-            returned to Menu
-        intern prompts:
-            name, 
-            employee ID, 
-            email address, 
-            school
-            returned to Menu
-        finish building team
-            exits application
-*/
+// arrays for questions for the manager, engineers, and interns
 const managerQuestions = [
   {
     name: "name",
@@ -137,18 +112,27 @@ const internQuestions = [
   },
 ];
 
+/*
+ runInquirerForManager
+  prompts the user with questions so they can add a Manager to the team, saves manager data as an object, and asks user what they want to do next
+    * prompts user with manager-related questions
+    * takes in manager-related answers
+    * loads data into the managerObj object
+    * Checks to see what the user wants to do next
+      * if they choose "Finish Building My Team", call finishBuildingTeam function
+      * if they choose "Add and Engineer to My Team", call runInquirerForEngineer
+      * if they choose "Add an Intern to My Team", call runInquirerForIntern        
+*/
 function runInquirerForManager() {
   inquirer.prompt(managerQuestions).then(function (answers) {
     const employeeManager = new manager(answers);
 
-    // load data into object
     newManagerObj.name = employeeManager.getName();
     newManagerObj.id = employeeManager.getId();
     newManagerObj.email = employeeManager.getEmail();
     newManagerObj.officeNumber = employeeManager.getOfficeNumber();
     newManagerObj.role = employeeManager.getRole();
 
-    // check what to do next
     let whatNext = answers.whatNext;
 
     if (whatNext === "Finish Building My Team") {
@@ -161,30 +145,36 @@ function runInquirerForManager() {
   });
 }
 
+/*
+ runInquirerForEngineer
+  prompts the user with questions so they can add an Engineer to the team, saves engineer data as an object and pushes to the engineerArray, and asks user what they want to do next
+    * prompts user with engineer-related questions
+    * takes in engineer-related answers
+    * loads data into an engineerObj object
+    * pushes engineerObj object to engineerArray array
+    * Checks to see what the user wants to do next
+      * if they choose "Finish Building My Team", call finishBuildingTeam function
+      * if they choose "Add and Engineer to My Team", call runInquirerForEngineer
+      * if they choose "Add an Intern to My Team", call runInquirerForIntern        
+*/
 function runInquirerForEngineer() {
   inquirer.prompt(engineerQuestions).then(function (answers) {
     const employeeEngineer = new engineer(answers);
 
-    // create the object
     let newEngineerObj = {};
 
-    // load data into object
     newEngineerObj.name = employeeEngineer.getName();
     newEngineerObj.id = employeeEngineer.getId();
     newEngineerObj.email = employeeEngineer.getEmail();
     newEngineerObj.github = employeeEngineer.getGithub();
     newEngineerObj.role = employeeEngineer.getRole();
 
-    // push new object into the array
     engineerArray.push(newEngineerObj);
 
     let whatNext = answers.whatNext;
 
     if (whatNext === "Finish Building My Team") {
-      //TODO: make finishBuildingTeam function
       finishBuildingTeam();
-      // const HTMLText = generateHTML.generateHTMLText(managerCard);
-      // writeToFile(HTMLText);
     } else if (whatNext === "Add An Enginner to My Team") {
       runInquirerForEngineer();
     } else {
@@ -193,30 +183,36 @@ function runInquirerForEngineer() {
   });
 }
 
+/*
+ runInquirerForIntern
+  prompts the user with questions so they can add an intern to the team, saves ingineer data as an object and pushes to the ingineerArray, and asks user what they want to do next
+    * prompts user with intern-related questions
+    * takes in intern-related answers
+    * loads data into an internObj object
+    * pushes internObj object to internArray array
+    * Checks to see what the user wants to do next
+      * if they choose "Finish Building My Team", call finishBuildingTeam function
+      * if they choose "Add and Engineer to My Team", call runInquirerForEngineer
+      * if they choose "Add an Intern to My Team", call runInquirerForIntern        
+*/
 function runInquirerForIntern() {
   inquirer.prompt(internQuestions).then(function (answers) {
     const employeeIntern = new intern(answers);
 
-    // create object
     let newInternObj = {};
 
-    // load data into object
     newInternObj.name = employeeIntern.getName();
     newInternObj.id = employeeIntern.getId();
     newInternObj.email = employeeIntern.getEmail();
     newInternObj.school = employeeIntern.getSchool();
     newInternObj.role = employeeIntern.getRole();
 
-    // push new object into the array
     internArray.push(newInternObj);
 
     let whatNext = answers.whatNext;
 
     if (whatNext === "Finish Building My Team") {
-      //TODO: make finishBuildingTeam function
       finishBuildingTeam();
-      // const HTMLText = generateHTML.generateHTMLText(managerCard);
-      // writeToFile(HTMLText);
     } else if (whatNext === "Add An Enginner to My Team") {
       runInquirerForEngineer();
     } else {
@@ -225,8 +221,29 @@ function runInquirerForIntern() {
   });
 }
 
+/*
+ finishBuildingTeam
+  creates Manager Card, loops through array to create Engineer Card(s), loops through array to create Intern Card(s), generates HTMLText, and calls writeToFile and sends it HTMLText
+    * Manager
+      * sets manager properties from the newManagerObj
+      * uses generateManager method from generateHTML.js to genereate a template literal manager card and return as "managerCard"
+    * Engineer(s)
+      * creates an empty string to add engineer cards as the array of objects is looped through
+      * loops through engineerObj objects in engineerArray array
+        * sets engineer properties from the engineerObj object
+        * uses generateEngineer method from generateHTML.js to genereate a template literal engineer card and return as "engineerCard"
+        * append engineerCard to engineerCardString
+    * Intner(s)
+      * creates an empty string to add intern cards as the array of objects is looped through
+      * loops through internObj objects in internArray array
+        * sets intern properties from the internObj object
+        * uses generateIntern method from generateHTML.js to genereate a template literal intern card and return as "internCard"
+        * append internCard to internCardString
+    * sets HTMLText by sending generateHTMLText method from generateHTML.js managerCard, engineerCardString, and internCardString
+    * calls WriteToFile and sends it HTMLText
+*/
 function finishBuildingTeam() {
-  //manager
+  //Manager
   let managerName = newManagerObj.name;
   let managerId = newManagerObj.id;
   let managerEmail = newManagerObj.email;
@@ -235,11 +252,9 @@ function finishBuildingTeam() {
 
   const managerCard = generateHTML.generateManager(managerName, managerId, managerEmail, managerOfficeNumber, managerRole);
 
-  // enginners
-  //create the string to add engineer cards
+  // Engineer(s)
   let engineerCardString = "";
 
-  // loop through engineerArray
   engineerArray.forEach(function (engineerObj) {
     let engineerName = engineerObj.name;
     let engineerId = engineerObj.id;
@@ -252,11 +267,9 @@ function finishBuildingTeam() {
     engineerCardString += engineerCard;
   });
 
-  // interns
-  // create the string to add intern cards
+  // Intern(s)
   let internCardString = "";
 
-  // loop through inernArray
   internArray.forEach(function (internObj) {
     let internName = internObj.name;
     let internId = internObj.id;
@@ -266,7 +279,6 @@ function finishBuildingTeam() {
 
     const internCard = generateHTML.generateIntern(internName, internId, internEmail, internSchool, internRole);
 
-    // append internCard to existing internCardString
     internCardString += internCard;
   });
 
@@ -278,6 +290,7 @@ function finishBuildingTeam() {
  Write HTML file
   writes the index.html file using "HTMLText" from generateHTMLText.js
     * titles file "index.html"
+    * sets the destination to the dist folder
     * writes file using "HTMLText" from generateHTMLText.js
     * if there is an error, console error
     * if the file is written successfully, console log sucess.
@@ -289,7 +302,7 @@ function writeToFile(HTMLText) {
 /*
  init()
   initializatize the application
-    * calls runInquirer function
+    * calls runInquirerForManager function
 */
 function init() {
   runInquirerForManager();
@@ -297,38 +310,3 @@ function init() {
 
 // Initialize the application by calling init function
 init();
-
-// const managerName = employeeManager.name;
-// const managerId = employeeManager.id;
-// const managerEmail = employeeManager.email;
-// const managerOfficeNumber = employeeManager.officeNumber;
-// const managerRole = employeeManager.getRole();
-// const managerCard = generateHTML.generateManager({ managerName, managerId, managerEmail, managerOfficeNumber, managerRole });
-
-/*
-    runInquirer
-        * inquirer prompts user with questions from the questions array
-        * user's answers are saved as "answers"
-        * always manager questions
-        * menu to cycle through until user chooses to finish building team
-        * send the answers to
-            const managerCard = manager.methodName(answers)
-            const engineerCard = enginner.methodName(answers)
-            const internCard = intern.methodName(answers)
-            const HTMLText = generateHTMLText.methodName(answers, managerCard, engineerCard, internCard)
-
-*/
-// function runInqurer() {
-//   inquirer.prompt(questions).then((answers) => {
-//     const employeeManager = new manager(answers);
-//     const managerName = employeeManager.name;
-//     const managerId = employeeManager.id;
-//     const managerEmail = employeeManager.email;
-//     const managerOfficeNumber = employeeManager.officeNumber;
-//     const managerRole = employeeManager.getRole();
-
-//     const managerCard = generateHTML.generateManager({ managerName, managerId, managerEmail, managerOfficeNumber, managerRole });
-//     const HTMLText = generateHTML.generateHTMLText(managerCard);
-//     writeToFile(HTMLText);
-//   });
-// }
