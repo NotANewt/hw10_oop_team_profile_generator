@@ -12,7 +12,7 @@ let newManagerObj = {};
 let engineerArray = [];
 let internArray = [];
 
-// arrays for questions for the manager, engineers, and interns
+// array of questions for the manager
 const managerQuestions = [
   {
     name: "name",
@@ -46,6 +46,7 @@ const managerQuestions = [
   },
 ];
 
+// array of questions for an engineer
 const engineerQuestions = [
   {
     name: "name",
@@ -79,6 +80,7 @@ const engineerQuestions = [
   },
 ];
 
+// array of questions for an intern
 const internQuestions = [
   {
     name: "name",
@@ -114,7 +116,8 @@ const internQuestions = [
 
 /*
  runInquirerForManager
-  prompts the user with questions so they can add a Manager to the team, saves manager data as an object, and asks user what they want to do next
+  prompts the user with questions so they can add a Manager to the team, saves manager data as an object, 
+  and asks user what they want to do next
     * prompts user with manager-related questions
     * takes in manager-related answers
     * loads data into the managerObj object
@@ -147,7 +150,8 @@ function runInquirerForManager() {
 
 /*
  runInquirerForEngineer
-  prompts the user with questions so they can add an Engineer to the team, saves engineer data as an object and pushes to the engineerArray, and asks user what they want to do next
+  prompts the user with questions so they can add an Engineer to the team, saves engineer data as an object 
+  and pushes the object to the engineerArray, and asks user what they want to do next
     * prompts user with engineer-related questions
     * takes in engineer-related answers
     * loads data into an engineerObj object
@@ -185,7 +189,8 @@ function runInquirerForEngineer() {
 
 /*
  runInquirerForIntern
-  prompts the user with questions so they can add an intern to the team, saves ingineer data as an object and pushes to the ingineerArray, and asks user what they want to do next
+  prompts the user with questions so they can add an intern to the team, saves intern data as an object 
+  and pushes it to the internArray, and asks user what they want to do next
     * prompts user with intern-related questions
     * takes in intern-related answers
     * loads data into an internObj object
@@ -223,7 +228,8 @@ function runInquirerForIntern() {
 
 /*
  finishBuildingTeam
-  creates Manager Card, loops through array to create Engineer Card(s), loops through array to create Intern Card(s), generates HTMLText, and calls writeToFile and sends it HTMLText
+  creates Manager Card, loops through array to create Engineer Card(s), loops through array to create Intern Card(s), 
+  generates HTMLText, and calls writeToFile and sends it HTMLText
     * Manager
       * sets manager properties from the newManagerObj
       * uses generateManager method from generateHTML.js to genereate a template literal manager card and return as "managerCard"
@@ -239,7 +245,7 @@ function runInquirerForIntern() {
         * sets intern properties from the internObj object
         * uses generateIntern method from generateHTML.js to genereate a template literal intern card and return as "internCard"
         * append internCard to internCardString
-    * sets HTMLText by sending generateHTMLText method from generateHTML.js managerCard, engineerCardString, and internCardString
+    * sets HTMLText by sending managerCard, engineerCardString, and internCardString to generateHTMLText method from generateHTML.js 
     * calls WriteToFile and sends it HTMLText
 */
 function finishBuildingTeam() {
@@ -289,8 +295,8 @@ function finishBuildingTeam() {
 /*
  Write HTML file
   writes the index.html file using "HTMLText" from generateHTMLText.js
-    * titles file "index.html"
     * sets the destination to the dist folder
+    * titles file "index.html"
     * writes file using "HTMLText" from generateHTMLText.js
     * if there is an error, console error
     * if the file is written successfully, console log sucess.
