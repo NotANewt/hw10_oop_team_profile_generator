@@ -1,7 +1,7 @@
 /*
  generateManager
   generates what will go in the Manager Card
-    * takes in manager-related answers
+    * takes in manager-related answers from new ManagerObj
     * uses a template literal for the layout of the Manager Card part of the HTML file with the supplied answers added into the template
     * returns the template literal
 */
@@ -29,8 +29,8 @@ function generateManager(managerName, managerId, managerEmail, managerOfficeNumb
 
 /*
  generateEngineer
-  generates what will go in the Engineer Card
-    * takes in engineer-related answers
+  generates what will go in the Engineer Card(s)
+    * takes in engineer-related answers from looped newEngineerObj
     * uses a template literal for the layout of Engineer Card part of the HTML file with the supplied answers added into the template
     * returns the template literal
 */
@@ -56,10 +56,10 @@ function generateEngineer(engineerName, engineerId, engineerEmail, engineerGithu
 }
 
 /*
- generateEngineer
-  generates what will go in the Engineer Card
-    * takes in engineer-related answers
-    * uses a template literal for the layout of Engineer Card part of the HTML file with the supplied answers added into the template
+ generateIntern
+  generates what will go in the Intern Card(s)
+    * takes in intern-related answers from looped newInternObj
+    * uses a template literal for the layout of Intern Card part of the HTML file with the supplied answers added into the template
     * returns the template literal
 */
 function generateIntern(internName, internId, internEmail, internSchool, internRole) {
@@ -83,6 +83,13 @@ function generateIntern(internName, internId, internEmail, internSchool, internR
   return internCard;
 }
 
+/*
+ generateHTMLText
+  generates the template literal for the HTML file
+    * takes in previously-generated managerCard, engineerCardString, and internCardString
+    * adds cards into the template literal layout of the HTML document
+    * returns the template literal
+*/
 function generateHTMLText(managerCard, engineerCardString, internCardString) {
   return `<!DOCTYPE html>
 <html lang="en">
