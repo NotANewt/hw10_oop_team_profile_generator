@@ -102,4 +102,3 @@ If you have any questions:
 
 - Here is the repo: [NotANewt/hw10_oop_team_profile_generator](https://www.github.com/NotANewt/hw10_oop_team_profile_generator)
 - Here is the walkthrough video: [Team Profile Generator Walkthrough](https://drive.google.com/file/d/13IRO4ypMX6kk1WQGvA7HZPGAFRau1x0W/view)
-- Here is the page generated during the walkthrough video: [NotANewt/Generated Page](https://notanewt.github.io/hw10_oop_team_profile_generator/)
