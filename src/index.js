@@ -18,24 +18,53 @@ const managerQuestions = [
     name: "name",
     type: "input",
     message: "Enter your team Manager's name.",
+    validate: function (input) {
+      const valid = input !== "";
+      return valid || "Please enter a name";
+    },
   },
 
   {
     name: "id",
-    type: "input",
+    type: "number",
     message: "Enter your team Manager's employee ID number.",
+    validate: function (input) {
+      const valid = Number.isInteger(input);
+      return valid || "Please enter a number";
+    },
+    /*
+    There is an inquirer bug when validating if the number is an integer. A "NaN" appears in the input
+    and cannot be deleted. I searched for a solution and found the answer from user Rangel Stoilov
+    https://stackoverflow.com/questions/62798907/how-to-clear-wrong-input-in-inquirer-js
+    They suggested adding the filter below.  
+    I used this code here any anywhere else with Number.isInteger(input).
+    */
+    filter: (input) => {
+      return Number.isNaN(input) || Number(input) <= 0 ? "" : Number(input);
+    },
   },
 
   {
     name: "email",
     type: "input",
     message: "Enter your team Manager's email.",
+    validate: function (email) {
+      const valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+      return valid || "Please enter a valid email address.";
+    },
   },
 
   {
     name: "officeNumber",
-    type: "input",
+    type: "number",
     message: "Enter your team Manager's office number.",
+    validate: function (input) {
+      const valid = Number.isInteger(input);
+      return valid || "Please enter a number";
+    },
+    filter: (input) => {
+      return Number.isNaN(input) || Number(input) <= 0 ? "" : Number(input);
+    },
   },
 
   {
@@ -52,24 +81,43 @@ const engineerQuestions = [
     name: "name",
     type: "input",
     message: "Enter your Engineer's name.",
+    validate: function (input) {
+      const valid = input !== "";
+      return valid || "Please enter a name";
+    },
   },
 
   {
     name: "id",
-    type: "input",
+    type: "number",
     message: "Enter your Engineer's employee ID number.",
+    validate: function (input) {
+      const valid = Number.isInteger(input);
+      return valid || "Please enter a number";
+    },
+    filter: (input) => {
+      return Number.isNaN(input) || Number(input) <= 0 ? "" : Number(input);
+    },
   },
 
   {
     name: "email",
     type: "input",
     message: "Enter your Engineer's email.",
+    validate: function (email) {
+      const valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+      return valid || "Please enter a valid email address.";
+    },
   },
 
   {
     name: "github",
     type: "input",
     message: "Enter your Engineer's github account name.",
+    validate: function (input) {
+      const valid = input !== "";
+      return valid || "Please enter a github account name";
+    },
   },
 
   {
@@ -86,24 +134,43 @@ const internQuestions = [
     name: "name",
     type: "input",
     message: "Enter your Intern's name.",
+    validate: function (input) {
+      const valid = input !== "";
+      return valid || "Please enter a name";
+    },
   },
 
   {
     name: "id",
-    type: "input",
+    type: "number",
     message: "Enter your Intern's employee ID number.",
+    validate: function (input) {
+      const valid = Number.isInteger(input);
+      return valid || "Please enter a number";
+    },
+    filter: (input) => {
+      return Number.isNaN(input) || Number(input) <= 0 ? "" : Number(input);
+    },
   },
 
   {
     name: "email",
     type: "input",
     message: "Enter your Intern's email.",
+    validate: function (email) {
+      const valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+      return valid || "Please enter a valid email address.";
+    },
   },
 
   {
     name: "school",
     type: "input",
     message: "Enter your Intern's school.",
+    validate: function (input) {
+      const valid = input !== "";
+      return valid || "Please enter a school";
+    },
   },
 
   {
